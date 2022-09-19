@@ -2,7 +2,6 @@ package pl.coderslab.diywithspring.models;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -24,6 +23,6 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
-//    @OneToOne(mappedBy = "user", cascade=CascadeType.ALL)
-//    private UserDetails userDetails;
+    @OneToOne(mappedBy = "user", cascade=CascadeType.ALL)
+    private UserDetails userDetails;
 }
