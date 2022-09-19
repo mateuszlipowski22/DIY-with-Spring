@@ -2,6 +2,7 @@ package pl.coderslab.diywithspring.models;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.access.method.P;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -25,4 +26,7 @@ public class User {
 
     @OneToOne(mappedBy = "user", cascade=CascadeType.ALL)
     private UserDetails userDetails;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Project> projects;
 }
