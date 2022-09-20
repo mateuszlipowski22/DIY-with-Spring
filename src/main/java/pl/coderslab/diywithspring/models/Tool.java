@@ -4,12 +4,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 @Getter
 @Setter
-public class Project {
+public class Tool {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,18 +17,12 @@ public class Project {
     @ManyToOne
     private User user;
 
-    private String title;
+    private String name;
 
     private String description;
 
-    private String components;
+    @Lob
+    private Byte image;
 
-    @OneToMany
-    private Set<Comment> comments;
-
-    @OneToMany
-    private Set<Step> steps;
-
-    @OneToMany
-    private Set<Tool> tools;
+    private String link;
 }

@@ -19,6 +19,7 @@ public class User {
     private String password;
     private String email;
     private int enabled;
+    private boolean confirmation;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -29,4 +30,7 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private Set<Project> projects;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Tool> tools;
 }

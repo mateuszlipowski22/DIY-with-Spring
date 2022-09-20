@@ -1,7 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%--<jsp:include page="/WEB-INF/views/static/header.jsp"/>--%>
+<jsp:include page="/WEB-INF/views/static/header.jsp"/>
 
 
 <div class="hero-body container has-text-centered">
@@ -47,4 +47,4 @@
     </div>
 </div>
 
-<%--<jsp:include page="/WEB-INF/views/static/footer.jsp"/>--%>
+<jsp:include page="/WEB-INF/views/static/footer.jsp"/>
