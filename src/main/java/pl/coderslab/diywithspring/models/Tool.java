@@ -22,7 +22,7 @@ public class Tool {
     private String description;
 
     @Lob
-    private Byte image;
+    private Byte[] image;
 
     private String link;
 }

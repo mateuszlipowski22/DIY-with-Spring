@@ -7,11 +7,11 @@
     <div class="container has-text-centered">
         <div class="container has-text-centered">
             <p class="title">
-                Add New Tool<br>
+                Edit Powertool<br>
             </p>
         </div>
         <table class="table is-fullwidth is-bordered">
-            <form:form modelAttribute="tool" method="post" action="/user/tool/add" enctype="multipart/form-data">
+            <form:form modelAttribute="tool" method="post" action="/user/${tool.user.id}/tool/${tool.id}/edit" enctype="multipart/form-data">
                 <div class="field">
                     <label class="label">Name</label>
                     <div>
@@ -45,7 +45,7 @@
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 </div>
                 <div class="control">
-                    <button type="submit" class="button is-link">Add Tool</button>
+                    <button type="submit" class="button is-link">Edit Tool</button>
                 </div>
             </form:form>
         </table>

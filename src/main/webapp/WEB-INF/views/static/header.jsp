@@ -58,7 +58,7 @@
                                 <sec:authorize access="hasRole('USER')">
                                     <li><a href="/user/book/list">Book List</a></li>
                                     <li><a href="/user/projects/">My projects</a></li>
-                                    <li><a href="/user/tools/">My tools</a></li>
+                                    <li><a href="/user/tools/">My Power tools</a></li>
                                 </sec:authorize>
 
                                 <sec:authorize access="isAnonymous()">
