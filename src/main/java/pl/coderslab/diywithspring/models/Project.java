@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -24,12 +25,15 @@ public class Project {
 
     private String components;
 
-    @OneToMany
-    private Set<Comment> comments;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Comment> comments;
 
     @OneToMany
-    private Set<Step> steps;
+    private List<Step> steps;
 
     @OneToMany
-    private Set<Tool> tools;
+    private List<Tool> tools;
+
+    @Lob
+    private Byte[] image;
 }

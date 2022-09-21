@@ -31,4 +31,11 @@ public class ProjectServiceImpl implements ProjectService {
     public List<Project> findProjectsByUserID(Long id) {
         return projectRepository.findAllByUserId(id);
     }
+
+    @Override
+    public List<Project> findAll() {
+        return projectRepository.findAll();
+    }
+
+
 }

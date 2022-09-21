@@ -40,13 +40,13 @@ public class ToolController {
     @GetMapping("tool/add")
     public String showAddToolForm(Model model, @AuthenticationPrincipal CurrentUser currentUser){
         model.addAttribute("tool", new Tool());
-        return "user/tool/add";
+        return "user/tool/addTool";
     }
 
     @PostMapping("tool/add")
     public String processAddToolForm(Tool tool,BindingResult bindingResult, @AuthenticationPrincipal CurrentUser currentUser, @RequestParam("imageFile") MultipartFile imageFile){
         if(bindingResult.hasErrors()){
-            return "user/tool/add";
+            return "user/tool/addTool";
         }
         Tool toolToSave=new Tool();
         toolToSave.setDescription(tool.getDescription());
