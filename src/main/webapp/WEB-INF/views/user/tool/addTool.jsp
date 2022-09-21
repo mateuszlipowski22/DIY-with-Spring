@@ -42,7 +42,6 @@
                 <div class="field">
                     <label class="control-label">Tool Picture</label>
                     <input id="imageFile" name="imageFile" type="file" class="file">
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 </div>
                 <div class="control">
                     <button type="submit" class="button is-link">Add Tool</button>
