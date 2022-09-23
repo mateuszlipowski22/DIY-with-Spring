@@ -3,6 +3,7 @@ package pl.coderslab.diywithspring.models;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -16,6 +17,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Slf4j
+@ToString
 public class UserDetails {
 
     @Id
@@ -32,6 +34,8 @@ public class UserDetails {
 
     private LocalDateTime createdOn;
 
+    @Lob
+    private Byte[] avatar;
 
     @PrePersist
     public void prePersist() throws IOException {

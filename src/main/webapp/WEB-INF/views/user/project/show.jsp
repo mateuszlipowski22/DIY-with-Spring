@@ -141,6 +141,10 @@
                                 <tr>
                                     <td style="width:20%">
                                         User: <strong>${comment.user.username}</strong><br>
+                                        <div class="container has-text-centered">
+                                            <img src="/user/details/${comment.user.id}/showAvatar"
+                                                 width="150" height="150">
+                                        </div>
                                         Written at<br>
                                             ${comment.createdOn}</td>
                                     <td>${comment.content}</td>

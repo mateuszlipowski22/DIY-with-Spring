@@ -20,18 +20,25 @@
           </c:if>
 
           <c:if test="${not empty project.comments}">
-            <c:forEach var="comment" items="${project.comments}" varStatus="loop">
-              <table class="table is-fullwidth is-bordered" style="width:100%">
-                <tbody>
+            <table class="table is-fullwidth is-bordered" style="width:100%">
+              <tbody>
+              <c:forEach var="comment" items="${project.comments}" varStatus="loop">
+
                 <tr>
                   <td style="width:20%">
-                    User: ${comment.user.username}<br>
+                    User: <strong>${comment.user.username}</strong><br>
+                    <div class="container has-text-centered">
+                      <img src="/user/details/${comment.user.id}/showAvatar"
+                           width="150" height="150">
+                    </div>
                     Written at<br>
                       ${comment.createdOn}</td>
                   <td>${comment.content}</td>
                 </tr>
-              </table>
-            </c:forEach>
+
+              </c:forEach>
+              </tbody>
+            </table>
           </c:if>
         </div>
       </div>

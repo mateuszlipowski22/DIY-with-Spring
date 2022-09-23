@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import pl.coderslab.diywithspring.models.Role;
 import pl.coderslab.diywithspring.models.User;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
@@ -15,4 +16,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findAllByRolesContaining(Role role);
 
+    @Modifying
+    @Transactional
+    @Query(value = "DELETE FROM user_role WHERE user_id = ?1", nativeQuery = true)
+    void deleteUserRole(Long id);
 }

@@ -10,6 +10,7 @@ import pl.coderslab.diywithspring.services.UserService;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -51,5 +52,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findUserById(Long id) {
         return userRepository.findById(id).get();
+    }
+
+    @Override
+    public List<User> findAllUsersByRoles(Role role) {
+        return userRepository.findAllByRolesContaining(role);
+    }
+
+    @Override
+    public void deleteUserRoleByUserId(Long userId) {
+        userRepository.deleteUserRole(userId);
+    }
+
+    @Override
+    public void deleteUserById(Long userId) {
+        userRepository.deleteById(userId);
     }
 }
