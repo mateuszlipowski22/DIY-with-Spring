@@ -38,10 +38,12 @@
             <c:forEach var="project" items="${projects}" varStatus="loop">
                 <tr>
                     <td>${loop.count}</td>
-                    <th>${userProject.image}</th>
-                    <td>${userProject.title}</td>
-                    <td>${userProject.description}</td>
-                    <td>${userProject.user.username}</td>
+                    <th>
+                        <img src="/user/project/${project.id}/showImage" width="150" height="150">
+                    </th>
+                    <td>${project.title}</td>
+                    <td>${project.description}</td>
+                    <td>${project.user.username}</td>
                     <td>
                         <nav class="navbar">
                             <div class="container">

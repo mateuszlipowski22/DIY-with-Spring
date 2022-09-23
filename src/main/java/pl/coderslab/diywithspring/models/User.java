@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.springframework.security.access.method.P;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -29,8 +30,8 @@ public class User {
     private UserDetails userDetails;
 
     @OneToMany(mappedBy = "user")
-    private Set<Project> projects;
+    private List<Project> projects;
 
-    @OneToMany(mappedBy = "user")
-    private Set<Tool> tools;
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Tool> tools;
 }

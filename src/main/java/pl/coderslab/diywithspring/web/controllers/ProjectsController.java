@@ -1,23 +1,37 @@
 package pl.coderslab.diywithspring.web.controllers;
 
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import pl.coderslab.diywithspring.models.CurrentUser;
+import pl.coderslab.diywithspring.models.Project;
+import pl.coderslab.diywithspring.models.Tool;
+import pl.coderslab.diywithspring.models.User;
 import pl.coderslab.diywithspring.services.ProjectService;
+import pl.coderslab.diywithspring.services.UserService;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
 
 @Controller
 @RequestMapping("user/")
 public class ProjectsController {
 
-    public ProjectsController(ProjectService projectService) {
-        this.projectService = projectService;
-    }
-
+    private final UserService userService;
     private final ProjectService projectService;
+
+    public ProjectsController(ProjectService projectService, UserService userService) {
+        this.projectService = projectService;
+        this.userService = userService;
+    }
 
     @GetMapping("projects/all")
     public String showUserProjects(Model model){
@@ -31,4 +45,48 @@ public class ProjectsController {
         return "user/project/show";
     }
 
+    @GetMapping("/project/add")
+    public String showAddProjectForm(Model model, @AuthenticationPrincipal CurrentUser currentUser){
+        User actualUser=userService.findUserById(currentUser.getUser().getId());
+        Project projectToView = new Project();
+        projectToView.setTools(actualUser.getTools());
+        model.addAttribute("project", projectToView);
+
+        return "user/project/addProject";
+    }
+
+    @PostMapping("/project/add")
+    public String showAddProjectForm(@Valid Project project,BindingResult bindingResult, @AuthenticationPrincipal CurrentUser currentUser, @RequestParam("imageFile") MultipartFile imageFile){
+        if(bindingResult.hasErrors()){
+            return "user/project/addProject";
+        }
+        Project projectToSave = new Project();
+        projectToSave.setCategory(project.getCategory());
+        projectToSave.setComponents(project.getComponents());
+        projectToSave.setTitle(project.getTitle());
+        projectToSave.setDescription(project.getDescription());
+        projectToSave.setImage(projectService.getByteImage(imageFile));
+        projectToSave.setUser(currentUser.getUser());
+        projectToSave.setTools(project.getTools());
+        projectService.saveProject(projectToSave);
+        return "redirect:/user/projects/all";
+    }
+
+    @GetMapping("/project/{projectId}/showImage")
+    private void renderImageFromDB(HttpServletResponse response, @PathVariable Long projectId) {
+        byte[] byteArray = new byte[projectService.findProjectByID(projectId).getImage().length];
+
+        int i=0;
+        for (Byte wrappedByte : projectService.findProjectByID(projectId).getImage()){
+            byteArray[i++]=wrappedByte;
+        }
+
+        response.setContentType("image/jpeg");
+        InputStream is = new ByteArrayInputStream(byteArray);
+        try {
+            IOUtils.copy(is, response.getOutputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

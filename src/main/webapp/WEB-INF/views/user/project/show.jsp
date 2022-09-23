@@ -14,7 +14,7 @@
                         Project ${project.title} Details<br>
                     </p>
                     <div class="container has-text-centered">
-                        <img src="/user/project/showImage"
+                        <img src="/user/project/${project.id}/showImage"
                              width="200" height="200">
                     </div>
                 </div>
@@ -48,19 +48,18 @@
                         </c:if>
 
                         <c:if test="${not empty project.tools}">
-                            <c:forEach var="tool" items="${project.tools}" varStatus="loop">
+                            <table class="table is-fullwidth is-bordered" style="width:100%">
+                                <thead>
+                                <tr>
+                                    <th style="width:10%">Num</th>
+                                    <th style="width:20%">Name</th>
+                                    <th>Description</th>
+                                    <th style="width:15%">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <c:forEach var="tool" items="${project.tools}" varStatus="loop">
 
-
-                                <table class="table is-fullwidth is-bordered" style="width:100%">
-                                    <thead>
-                                    <tr>
-                                        <th style="width:10%">Num</th>
-                                        <th style="width:20%">Name</th>
-                                        <th>Description</th>
-                                        <th style="width:15%">Action</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
                                     <tr>
                                         <td>${loop.count}</td>
                                         <td>${tool.name}</td>
@@ -78,8 +77,10 @@
                                             </nav>
                                         </td>
                                     </tr>
-                                </table>
-                            </c:forEach>
+
+                                </c:forEach>
+                                </tbody>
+                            </table>
                         </c:if>
                     </div>
                 </div>
@@ -133,18 +134,21 @@
                     </c:if>
 
                     <c:if test="${not empty project.comments}">
-                        <c:forEach var="comment" items="${project.comments}" varStatus="loop">
-                            <table class="table is-fullwidth is-bordered" style="width:100%">
-                                <tbody>
+                        <table class="table is-fullwidth is-bordered" style="width:100%">
+                            <tbody>
+                            <c:forEach var="comment" items="${project.comments}" varStatus="loop">
+
                                 <tr>
                                     <td style="width:20%">
-                                        User: ${comment.user.username}<br>
+                                        User: <strong>${comment.user.username}</strong><br>
                                         Written at<br>
                                             ${comment.createdOn}</td>
                                     <td>${comment.content}</td>
                                 </tr>
-                            </table>
-                        </c:forEach>
+
+                            </c:forEach>
+                            </tbody>
+                        </table>
                     </c:if>
                 </div>
             </div>

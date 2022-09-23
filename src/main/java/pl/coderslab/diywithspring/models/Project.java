@@ -1,7 +1,6 @@
 package pl.coderslab.diywithspring.models;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -10,6 +9,9 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Project {
 
     @Id
@@ -25,6 +27,8 @@ public class Project {
 
     private String components;
 
+    private String category;
+
     @OneToMany(cascade = CascadeType.ALL)
     private List<Comment> comments;
 
@@ -36,4 +40,6 @@ public class Project {
 
     @Lob
     private Byte[] image;
+
+
 }
