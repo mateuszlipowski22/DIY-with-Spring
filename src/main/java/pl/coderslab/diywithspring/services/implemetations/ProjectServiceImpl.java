@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import pl.coderslab.diywithspring.models.Project;
 import pl.coderslab.diywithspring.repositories.ProjectRepository;
-import pl.coderslab.diywithspring.services.ProjectService;
+import pl.coderslab.diywithspring.services.interfaces.ProjectService;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -58,7 +58,7 @@ public class ProjectServiceImpl implements ProjectService {
                 }
                 return byteObject;
             }else {
-                return ArrayUtils.toObject(Files.readAllBytes(Paths.get("src/main/webapp/WEB-INF/resources/static/powertool.jpeg")));
+                return ArrayUtils.toObject(Files.readAllBytes(Paths.get("src/main/webapp/resources/images/powertool.jpeg")));
             }
 
         }catch (IOException e){

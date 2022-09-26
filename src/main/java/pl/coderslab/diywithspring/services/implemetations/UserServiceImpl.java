@@ -6,11 +6,13 @@ import pl.coderslab.diywithspring.models.Role;
 import pl.coderslab.diywithspring.models.User;
 import pl.coderslab.diywithspring.repositories.RoleRepository;
 import pl.coderslab.diywithspring.repositories.UserRepository;
-import pl.coderslab.diywithspring.services.UserService;
+import pl.coderslab.diywithspring.services.interfaces.UserService;
 
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -67,5 +69,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUserById(Long userId) {
         userRepository.deleteById(userId);
+    }
+
+    @Override
+    public Set<String> getUserNameList() {
+        return userRepository.findAllByRolesContaining(roleRepository.findByName("ROLE_USER")).stream().map(User::getUsername).collect(Collectors.toSet());
     }
 }

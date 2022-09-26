@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%--<%@ page contentType="text/html;charset=UTF-8" language="java" %>--%>
 <!DOCTYPE html>
 <html>
 
@@ -57,6 +57,7 @@
                                     <li><a href="/user/projects/all">All projects</a></li>
                                     <li><a href="/user/projects/">My projects</a></li>
                                     <li><a href="/user/tools/">My Power tools</a></li>
+                                    <li><a href="/user/chat/">Chat</a></li>
                                 </sec:authorize>
 
                                 <sec:authorize access="isAnonymous()">

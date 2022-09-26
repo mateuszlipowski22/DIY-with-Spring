@@ -6,7 +6,6 @@ import pl.coderslab.diywithspring.models.Tool;
 
 import java.util.List;
 
-@Repository
 public interface ToolRepository extends JpaRepository<Tool,Long> {
 
     List<Tool> findAllByUserId(Long userId);

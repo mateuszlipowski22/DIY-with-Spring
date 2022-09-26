@@ -145,8 +145,35 @@
                                             <img src="/user/details/${comment.user.id}/showAvatar"
                                                  width="150" height="150">
                                         </div>
-                                        Written at<br>
-                                            ${comment.createdOn}</td>
+                                        Written on<br>
+                                            ${comment.createdOn}<br>
+
+                                        <c:if test="${not empty comment.updatedOn}">
+                                        Edited on<br>
+                                            ${comment.updatedOn}
+                                        </c:if>
+
+                                        <c:if test="${currentUserId==comment.user.id}">
+                                            <nav class="navbar">
+                                                <div class="tabs is-right">
+                                                    <div class="navbar-menu">
+                                                        <form method="get" action="/user/project/comment/edit">
+                                                            <input type="hidden" name="projectId" value="${project.id}"/>
+                                                            <input type="hidden" name="commentId" value="${comment.id}"/>
+                                                            <button type="submit" class="button is-link">Edit</button>
+                                                        </form>
+                                                    </div>
+                                                    <div class="navbar-menu">
+                                                        <form method="get" action="/user/project/comment/delete">
+                                                            <input type="hidden" name="commentId" value="${comment.id}"/>
+                                                            <input type="hidden" name="projectId" value="${project.id}"/>
+                                                            <button type="submit" class="button is-link">Delete</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </nav>
+                                        </c:if>
+                                    </td>
                                     <td>${comment.content}</td>
                                 </tr>
 

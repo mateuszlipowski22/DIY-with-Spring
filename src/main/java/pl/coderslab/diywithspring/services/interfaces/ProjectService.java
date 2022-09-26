@@ -1,4 +1,4 @@
-package pl.coderslab.diywithspring.services;
+package pl.coderslab.diywithspring.services.interfaces;
 
 import org.springframework.web.multipart.MultipartFile;
 import pl.coderslab.diywithspring.models.Project;

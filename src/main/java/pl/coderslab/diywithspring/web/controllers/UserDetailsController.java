@@ -5,11 +5,10 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import pl.coderslab.diywithspring.models.CurrentUser;
 import pl.coderslab.diywithspring.models.UserDetails;
-import pl.coderslab.diywithspring.services.UserDetailsService;
-import pl.coderslab.diywithspring.services.UserService;
+import pl.coderslab.diywithspring.services.interfaces.UserDetailsService;
+import pl.coderslab.diywithspring.services.interfaces.UserService;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;

@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.coderslab.diywithspring.models.User;
-import pl.coderslab.diywithspring.services.UserService;
+import pl.coderslab.diywithspring.services.interfaces.UserService;
 
 @Controller
 public class LoginController {

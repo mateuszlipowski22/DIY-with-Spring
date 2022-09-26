@@ -19,7 +19,7 @@
             </tr>
             <tr>
                 <td>
-                    <form:form modelAttribute="user" method="post" action="/register">
+                    <form:form modelAttribute="userDTO" method="post" action="/register">
                         <div class="field">
                             <label class="label">User Name:</label>
                             <div>

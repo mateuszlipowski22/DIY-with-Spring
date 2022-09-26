@@ -16,4 +16,8 @@ public class HomeController {
         return "/static/about";
     }
 
+    @GetMapping("user/chat/")
+    public String chat() {
+        return "/static/chat";
+    }
 }

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import pl.coderslab.diywithspring.models.UserDetails;
 import pl.coderslab.diywithspring.repositories.UserDetailsRepository;
-import pl.coderslab.diywithspring.services.UserDetailsService;
+import pl.coderslab.diywithspring.services.interfaces.UserDetailsService;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -46,7 +46,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 }
                 return byteObject;
             }else {
-                return ArrayUtils.toObject(Files.readAllBytes(Paths.get("src/main/webapp/WEB-INF/resources/static/powertool.jpeg")));
+                return ArrayUtils.toObject(Files.readAllBytes(Paths.get("src/main/webapp/resources/images/powertool.jpeg")));
             }
 
         }catch (IOException e){

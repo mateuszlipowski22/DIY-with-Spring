@@ -8,12 +8,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import pl.coderslab.diywithspring.dto.UserDTO;
+import pl.coderslab.diywithspring.dto.UserDetailsDTO;
 import pl.coderslab.diywithspring.models.User;
 import pl.coderslab.diywithspring.models.UserDetails;
-import pl.coderslab.diywithspring.services.UserDetailsService;
-import pl.coderslab.diywithspring.services.UserService;
+import pl.coderslab.diywithspring.services.interfaces.UserDetailsService;
+import pl.coderslab.diywithspring.services.interfaces.UserService;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
@@ -31,42 +32,41 @@ public class RegistrationController {
 
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("userDTO", new UserDTO());
         return "static/register";
     }
 
     @Transactional
     @PostMapping("/register")
-    public String processRegistration(@Valid User user, BindingResult result, Model model){
+    public String processRegistration(@Valid UserDTO userDTO, BindingResult result, Model model){
         if (result.hasErrors()) {
             return "static/register";
         }
         User userToSave= new User();
-        userToSave.setPassword(user.getPassword());
-        userToSave.setUsername(user.getUsername());
-        userToSave.setEmail(user.getEmail());
-        userToSave.setConfirmation(user.isConfirmation());
+        userToSave.setPassword(userDTO.getPassword());
+        userToSave.setUsername(userDTO.getUsername());
+        userToSave.setEmail(userDTO.getEmail());
+        userToSave.setConfirmation(userDTO.isConfirmation());
         UserDetails userToSaveDetails = new UserDetails();
         userToSave.setUserDetails(userToSaveDetails);
         userToSaveDetails.setUser(userToSave);
         userService.saveUser(userToSave);
 
-        model.addAttribute("userDetails", new UserDetails());
+        model.addAttribute("userDetailsDTO", new UserDetailsDTO());
         User userFromDB = userService.findByUserName(userToSave.getUsername());
-        log.debug(userFromDB.getUserDetails().toString());
         model.addAttribute("newUserId", userFromDB.getId());
         return "static/registerUserDetails";
     }
 
     @PostMapping("/register/userDetails")
-    public String processRegistrationDetailsForm(@Valid UserDetails userDetails, BindingResult bindingResult, @RequestParam("newUserId") Long newUserId, MultipartFile imageFile) {
+    public String processRegistrationDetailsForm(@Valid UserDetailsDTO userDetailsDTO, BindingResult bindingResult, @RequestParam("newUserId") Long newUserId, MultipartFile imageFile) {
         if (bindingResult.hasErrors()) {
             return "static/registerUserDetails";
         }
         User userDB=userService.findUserById(newUserId);
         UserDetails userDetailsDB = userDB.getUserDetails();
-        userDetailsDB.setAboutMe(userDetails.getAboutMe());
-        userDetailsDB.setCity(userDetails.getCity());
+        userDetailsDB.setAboutMe(userDetailsDTO.getAboutMe());
+        userDetailsDB.setCity(userDetailsDTO.getCity());
         userDetailsDB.setAvatar(userDetailsService.getByteAvatar(imageFile));
         userDetailsService.saveUserDetails(userDetailsDB);
         return "redirect:/login";

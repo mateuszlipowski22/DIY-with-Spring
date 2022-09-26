@@ -1,4 +1,4 @@
-package pl.coderslab.diywithspring.services;
+package pl.coderslab.diywithspring.services.interfaces;
 
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -8,6 +8,7 @@ import pl.coderslab.diywithspring.models.User;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Set;
 
 
 public interface UserService {
@@ -22,4 +23,6 @@ public interface UserService {
     void deleteUserRoleByUserId(Long userId);
 
     void deleteUserById(Long userId);
+
+    Set<String> getUserNameList();
 }

@@ -19,7 +19,7 @@
             </tr>
             <tr>
                 <td>
-                    <form:form modelAttribute="userDetails" method="post" action="/register/userDetails"
+                    <form:form modelAttribute="userDetailsDTO" method="post" action="/register/userDetails"
                                enctype="multipart/form-data">
 
                         <div class=" field">
@@ -42,7 +42,7 @@
                             </div>
                         </div>
                         <div class="field">
-                            <label class="control-label">Select File</label>
+                            <label class="control-label">Select your avatar</label>
                             <input id="imageFile" name="imageFile" type="file" class="file">
                         </div>
                         <div>
