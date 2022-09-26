@@ -32,7 +32,11 @@
                            width="150" height="150">
                     </div>
                     Written at<br>
-                      ${comment.createdOn}</td>
+                      ${comment.createdOn}<br>
+                    <c:if test="${not empty comment.updatedOn}">
+                      Edited on<br>
+                      ${comment.updatedOn}
+                    </c:if></td>
                   <td>${comment.content}</td>
                 </tr>
 
@@ -48,7 +52,7 @@
         <div class="tile is-child box">
           <form:form modelAttribute="comment" method="post" action="/user/project/comment/add">
             <div class="field">
-              <label class="label">Name</label>
+              <label class="label">Content</label>
               <div>
                 <form:input path="content" cssClass="input"></form:input>
               </div>

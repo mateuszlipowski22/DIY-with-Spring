@@ -1,4 +1,4 @@
-package pl.coderslab.diywithspring.services;
+package pl.coderslab.diywithspring.services.interfaces;
 
 import pl.coderslab.diywithspring.models.Comment;
 
@@ -9,4 +9,7 @@ public interface CommentService {
     void saveComment(Comment comment);
     List<Comment> findCommentsByProjectId(Long projectId);
 
+    Comment findCommentByID(Long commentId);
+
+    void deleteCommentById(Long commentId);
 }

@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.coderslab.diywithspring.models.User;
-import pl.coderslab.diywithspring.services.RoleService;
-import pl.coderslab.diywithspring.services.UserService;
+import pl.coderslab.diywithspring.services.interfaces.RoleService;
+import pl.coderslab.diywithspring.services.interfaces.UserService;
 
 
 import javax.validation.Valid;

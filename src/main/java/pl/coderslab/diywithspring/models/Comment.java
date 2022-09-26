@@ -26,9 +26,15 @@ public class Comment {
 
     private LocalDateTime createdOn;
 
+    private LocalDateTime updatedOn;
 
     @PrePersist
     public void prePersist() throws IOException {
         createdOn = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        updatedOn = LocalDateTime.now();
     }
 }

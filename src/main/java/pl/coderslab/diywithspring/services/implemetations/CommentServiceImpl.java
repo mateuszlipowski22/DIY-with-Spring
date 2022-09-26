@@ -1,12 +1,10 @@
 package pl.coderslab.diywithspring.services.implemetations;
 
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import pl.coderslab.diywithspring.models.Comment;
-import pl.coderslab.diywithspring.models.CurrentUser;
 import pl.coderslab.diywithspring.repositories.CommentRepository;
-import pl.coderslab.diywithspring.services.CommentService;
-import pl.coderslab.diywithspring.services.ProjectService;
+import pl.coderslab.diywithspring.services.interfaces.CommentService;
+import pl.coderslab.diywithspring.services.interfaces.ProjectService;
 
 import java.util.List;
 
@@ -30,5 +28,15 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public List<Comment> findCommentsByProjectId(Long projectId) {
         return commentRepository.findAllByProjectId(projectId);
+    }
+
+    @Override
+    public Comment findCommentByID(Long commentId) {
+        return commentRepository.findById(commentId).orElseThrow(IllegalArgumentException::new);
+    }
+
+    @Override
+    public void deleteCommentById(Long commentId) {
+        commentRepository.deleteById(commentId);
     }
 }
