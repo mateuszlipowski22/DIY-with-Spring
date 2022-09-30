@@ -20,8 +20,6 @@
                                 <p class="control has-icons-left">
                                     <input id="userName" type="hidden"
                                            value="<sec:authentication property="principal.username"/>"/>
-                                    <button onclick="registration()">Enter the chat</button>
-                                    <button onclick="fetchAll()">Refresh</button>
                                 </p>
                             </div>
                             <ul class="list" id="usersList">
@@ -45,12 +43,7 @@
                             <i class="fa fa-star"></i>
                         </div> <!-- end chat-header -->
 
-                        <div class="chat-history">
-                            <ul>
-
-                            </ul>
-
-                        </div> <!-- end chat-history -->
+                        <div class="chat-history" id="chat-history"><ul></ul></div> <!-- end chat-history -->
 
                         <div class="chat-message clearfix">
                         <textarea id="message-to-send" name="message-to-send" placeholder="Type your message"
@@ -86,6 +79,30 @@
                 <div class="message-header">
                     <span class="message-data-name"><i class="fa fa-circle online"></i> {{userName}}</span>
                     <span class="message-data-time">{{time}}, Today</span>
+                </div>
+                <div class="message-body">
+                    {{response}}
+                </div>
+            </article>
+        </script>
+
+        <script id="message-template-db" type="text/x-handlebars-template">
+            <article class="message is-info">
+                <div class="message-header">
+                    <span class="message-data-time">{{time}}, </span> &nbsp; &nbsp;
+                    <span class="message-data-name">You</span> <i class="fa fa-circle me"></i>
+                </div>
+                <div class="message-body">
+                    {{messageOutput}}
+                </div>
+            </article>
+        </script>
+
+        <script id="message-response-template-db" type="text/x-handlebars-template">
+            <article class="message is-success">
+                <div class="message-header">
+                    <span class="message-data-name"><i class="fa fa-circle online"></i> {{userName}} </span>
+                    <span class="message-data-time">{{time}}, </span>
                 </div>
                 <div class="message-body">
                     {{response}}
