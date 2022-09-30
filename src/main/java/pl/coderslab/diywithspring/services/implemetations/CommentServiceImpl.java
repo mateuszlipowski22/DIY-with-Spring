@@ -1,6 +1,7 @@
 package pl.coderslab.diywithspring.services.implemetations;
 
 import org.springframework.stereotype.Service;
+import pl.coderslab.diywithspring.dto.CommentDTO;
 import pl.coderslab.diywithspring.models.Comment;
 import pl.coderslab.diywithspring.repositories.CommentRepository;
 import pl.coderslab.diywithspring.services.interfaces.CommentService;
@@ -38,5 +39,17 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public void deleteCommentById(Long commentId) {
         commentRepository.deleteById(commentId);
+    }
+
+    @Override
+    public CommentDTO convertCommandIntoCommandDTO(Comment comment) {
+        CommentDTO commentDTO = new CommentDTO();
+        commentDTO.setContent(comment.getContent());
+        commentDTO.setId(comment.getId());
+        commentDTO.setCreatedOn(comment.getCreatedOn());
+        commentDTO.setProject(comment.getProject());
+        commentDTO.setUser(comment.getUser());
+        commentDTO.setUpdatedOn(comment.getUpdatedOn());
+        return commentDTO;
     }
 }

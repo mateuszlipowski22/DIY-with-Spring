@@ -54,14 +54,14 @@
           </div>
           <div class="container has-text-centered">
 
-          ${comment.content}
+          ${commentDTO.content}
 
           </div>
 
           <div class="level-item has-text-centered" style="">
             <form method="post" action="/user/project/comment/delete">
               <input type="hidden" name="projectId" value="${project.id}"/>
-              <input type="hidden" name="commentId" value="${comment.id}"/>
+              <input type="hidden" name="commentId" value="${commentDTO.id}"/>
               <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
               <div class="control">
                 <button type="submit" class="button is-link">Yes</button>

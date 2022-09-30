@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import pl.coderslab.diywithspring.dto.CommentDTO;
 import pl.coderslab.diywithspring.models.Comment;
 import pl.coderslab.diywithspring.models.CurrentUser;
 import pl.coderslab.diywithspring.models.Project;
@@ -31,42 +32,41 @@ public class CommentController {
     @GetMapping("add")
     public String showAddComment(@RequestParam("projectId") Long projectId, Model model) {
         model.addAttribute("project", projectService.findProjectByID(projectId));
-        model.addAttribute("comment", new Comment());
+        model.addAttribute("commentDTO", new CommentDTO());
         return "/user/project/comment/addComment";
     }
 
 
     @PostMapping("add")
-    public String processAddComment(Comment comment, @RequestParam("projectId") Long projectId, @AuthenticationPrincipal CurrentUser currentUser) {
+    public String processAddComment(CommentDTO commentDTO, @RequestParam("projectId") Long projectId, @AuthenticationPrincipal CurrentUser currentUser) {
         Comment commentToSave = new Comment();
-        commentToSave.setContent(comment.getContent());
+        commentToSave.setContent(commentDTO.getContent());
         commentToSave.setProject(projectService.findProjectByID(projectId));
         commentToSave.setUser(currentUser.getUser());
         Project projectToUpdate = projectService.findProjectByID(projectId);
         projectToUpdate.getComments().add(commentToSave);
         projectService.saveProject(projectToUpdate);
         return "redirect:/user/project/" + projectId + "/show";
-//        websocket spring chat between users, dto, security
     }
 
     @GetMapping("edit")
     public String showEditComment(@RequestParam("projectId") Long projectId, @RequestParam("commentId") Long commentId, Model model) {
         model.addAttribute("project", projectService.findProjectByID(projectId));
-        model.addAttribute("comment", commentService.findCommentByID(commentId));
+        model.addAttribute("commentDTO", commentService.convertCommandIntoCommandDTO(commentService.findCommentByID(commentId)));
         return "/user/project/comment/editComment";
     }
 
     @PostMapping("edit")
-    public String processEditComment(Comment comment, @RequestParam("projectId") Long projectId, @RequestParam("commentId") Long commentId) {
+    public String processEditComment(CommentDTO commentDTO, @RequestParam("projectId") Long projectId, @RequestParam("commentId") Long commentId) {
         Comment commentToUpdate = commentService.findCommentByID(commentId);
-        commentToUpdate.setContent(comment.getContent());
+        commentToUpdate.setContent(commentDTO.getContent());
         commentService.saveComment(commentToUpdate);
         return "redirect:/user/project/" + projectId + "/show";
     }
 
     @GetMapping("delete")
     public String showDeleteComment(@RequestParam("projectId") Long projectId, @RequestParam("commentId") Long commentId, Model model) {
-        model.addAttribute("comment", commentService.findCommentByID(commentId));
+        model.addAttribute("commentDTO", commentService.convertCommandIntoCommandDTO(commentService.findCommentByID(commentId)));
         model.addAttribute("project", projectService.findProjectByID(projectId));
         return "/user/project/comment/deleteComment";
     }

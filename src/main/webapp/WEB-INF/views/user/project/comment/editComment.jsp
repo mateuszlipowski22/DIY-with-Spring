@@ -44,7 +44,7 @@
     <div class="tile is-ancestor">
       <div class="tile is-parent">
         <div class="tile is-child box">
-          <form:form modelAttribute="comment" method="post" action="/user/project/comment/edit">
+          <form:form modelAttribute="commentDTO" method="post" action="/user/project/comment/edit">
             <div class="field">
               <label class="label">Content</label>
               <div>
@@ -52,7 +52,7 @@
               </div>
               <div>
                 <input type="hidden" name="projectId" value="${project.id}"/>
-                <input type="hidden" name="commentId" value="${comment.id}"/>
+                <input type="hidden" name="commentId" value="${commentDTO.id}"/>
               </div>
             </div>
             <div class="control">

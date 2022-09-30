@@ -50,7 +50,7 @@
     <div class="tile is-ancestor">
       <div class="tile is-parent">
         <div class="tile is-child box">
-          <form:form modelAttribute="comment" method="post" action="/user/project/comment/add">
+          <form:form modelAttribute="commentDTO" method="post" action="/user/project/comment/add">
             <div class="field">
               <label class="label">Content</label>
               <div>
