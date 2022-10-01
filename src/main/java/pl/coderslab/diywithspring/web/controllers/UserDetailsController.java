@@ -4,13 +4,18 @@ import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import pl.coderslab.diywithspring.dto.UserDetailsDTO;
 import pl.coderslab.diywithspring.models.CurrentUser;
+import pl.coderslab.diywithspring.models.User;
 import pl.coderslab.diywithspring.models.UserDetails;
 import pl.coderslab.diywithspring.services.interfaces.UserDetailsService;
 import pl.coderslab.diywithspring.services.interfaces.UserService;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -77,5 +82,26 @@ public class UserDetailsController {
         response.setContentType("image/jpeg");
         InputStream is = new ByteArrayInputStream(byteArray);
         IOUtils.copy(is, response.getOutputStream());
+    }
+
+
+    @GetMapping("edit")
+    public String showEditUserDetailsForm(@AuthenticationPrincipal CurrentUser currentUser, Model model) {
+        model.addAttribute("userDetailsDTO", userDetailsService.getUserDetails(currentUser.getUser().getId()));
+        return "user/details/editUserDetails";
+    }
+
+    @PostMapping("edit")
+    public String processEditUserDetailsForm(@Valid UserDetailsDTO userDetailsDTO, BindingResult bindingResult, @AuthenticationPrincipal CurrentUser currentUser, MultipartFile imageFile) {
+        if (bindingResult.hasErrors()) {
+            return "user/details/editUserDetails";
+        }
+        User userDB=userService.findUserById(currentUser.getUser().getId());
+        UserDetails userDetailsDB = userDB.getUserDetails();
+        userDetailsDB.setAboutMe(userDetailsDTO.getAboutMe());
+        userDetailsDB.setCity(userDetailsDTO.getCity());
+        userDetailsDB.setAvatar(userDetailsService.getByteAvatar(imageFile));
+        userDetailsService.saveUserDetails(userDetailsDB);
+        return "redirect:/user/details/show";
     }
 }

@@ -35,11 +35,10 @@ public class Project {
     @OneToMany
     private List<Step> steps;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Tool> tools;
 
     @Lob
     private Byte[] image;
-
 
 }

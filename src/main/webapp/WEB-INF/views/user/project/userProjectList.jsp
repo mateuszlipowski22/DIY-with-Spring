@@ -47,19 +47,22 @@
                             <nav class="navbar">
                                 <div class="container">
                                     <div class="navbar-menu">
-                                        <a href="/user/project/${userProject.id}/show">
-                                            <button type="submit" class="button button is-primary">Show Details</button>
-                                        </a>
+                                        <form method="get" action="/user/project/${userProject.id}/show">
+                                            <input type="hidden" name="projectId" value="${userProject.id}"/>
+                                            <button type="submit" class="button button is-primary">Show</button>
+                                        </form>
                                     </div>
                                     <div class="navbar-menu">
-                                        <a href="/user/project/${userProject.id}/edit">
+                                        <form method="get" action="/user/project/edit">
+                                            <input type="hidden" name="projectID" value="${userProject.id}"/>
                                             <button type="submit" class="button button is-primary">Edit</button>
-                                        </a>
+                                        </form>
                                     </div>
                                     <div class="navbar-menu">
-                                        <a href="/user/project/${userProject.id}/delete">
+                                        <form method="get" action="/user/project/delete">
+                                            <input type="hidden" name="projectID" value="${userProject.id}"/>
                                             <button type="submit" class="button button is-primary">Delete</button>
-                                        </a>
+                                        </form>
                                     </div>
                                 </div>
                             </nav>
