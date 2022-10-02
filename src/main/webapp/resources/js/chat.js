@@ -6,7 +6,8 @@ let tempChatHistory;
 
 document.addEventListener("DOMContentLoaded", function () {
     registration();
-    fetchAll()
+    fetchAll();
+    setInterval(fetchAll,60*1000);
 });
 
 
@@ -86,25 +87,30 @@ function selectUser(userName) {
 }
 
 function fetchAll() {
+    let currentLoggedUsers=[];
+    $.get(url + "/fetchAllLoggedUsers", function (response) {
+        let loggedUsers = response;
+        for (let i = 0; i < loggedUsers.length; i++) {
+            currentLoggedUsers.push(loggedUsers[i])
+        }
+    });
+
     $.get(url + "/fetchAllUsers", function (response) {
         let users = response;
         let usersTemplateHTML = "";
         for (let i = 0; i < users.length; i++) {
-            usersTemplateHTML = usersTemplateHTML + '<a href="#" onclick="selectUser(\'' + users[i] + '\')" class="panel-block">\n' +
-                '                                    <div id="userNameAppender_\' + users[i] + \'" class="name">' + users[i] + '</div>\n' +
-                '                                </a>';
+            if(currentLoggedUsers.includes(users[i])){
+                usersTemplateHTML = usersTemplateHTML + '<a href="#" onclick="selectUser(\'' + users[i] + '\')" class="panel-block">\n' +
+                    '                                    <div id="userNameAppender_\' + users[i] + \'" class="name">&#128994 ' + users[i] + '</div>\n' +
+                    '                                </a>';
+            }else{
+                usersTemplateHTML = usersTemplateHTML + '<a href="#" onclick="selectUser(\'' + users[i] + '\')" class="panel-block">\n' +
+                    '                                    <div id="userNameAppender_\' + users[i] + \'" class="name">&#128308 ' + users[i] + '</div>\n' +
+                    '                                </a>';
+            }
         }
         $('#usersList').html(usersTemplateHTML);
     });
+
 }
-
-
-async function displayChatHistory(userName) {
-    let obj;
-    const res = await fetch('http://localhost:8080/user/chat/' + userName);
-    obj = await res.json();
-    // console.log(obj)
-    return obj;
-}
-
 

@@ -25,4 +25,6 @@ public interface UserService {
     void deleteUserById(Long userId);
 
     Set<String> getUserNameList();
+
+    Set<String> getCurrentLoggedUserNameList();
 }

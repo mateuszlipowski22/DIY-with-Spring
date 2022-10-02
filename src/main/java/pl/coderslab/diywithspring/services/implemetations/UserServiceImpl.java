@@ -1,5 +1,7 @@
 package pl.coderslab.diywithspring.services.implemetations;
 
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.coderslab.diywithspring.models.Role;
@@ -20,12 +22,14 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final BCryptPasswordEncoder passwordEncoder;
+    private SessionRegistry sessionRegistry;
 
 
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder passwordEncoder, SessionRegistry sessionRegistry) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
+        this.sessionRegistry = sessionRegistry;
     }
 
     @Override
@@ -74,5 +78,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public Set<String> getUserNameList() {
         return userRepository.findAllByRolesContaining(roleRepository.findByName("ROLE_USER")).stream().map(User::getUsername).collect(Collectors.toSet());
+    }
+
+    @Override
+    public Set<String> getCurrentLoggedUserNameList() {
+        return sessionRegistry.getAllPrincipals()
+                .stream()
+                .filter(principal -> principal instanceof UserDetails)
+                .map(UserDetails.class::cast)
+                .map(UserDetails::getUsername)
+                .collect(Collectors.toSet());
     }
 }

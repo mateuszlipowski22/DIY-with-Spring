@@ -44,7 +44,7 @@ public class MessageController {
             simpMessagingTemplate.convertAndSend("/topic/messages/" + to, message);
     }
 
-    @RequestMapping({"/user/chat/{toLogin}"})
+    @RequestMapping(value = {"/user/chat/{toLogin}"}, method = RequestMethod.GET)
     public List<MessageModel> getMessageByUsers(@PathVariable String toLogin, @AuthenticationPrincipal CurrentUser currentUser){
         System.out.println(toLogin);
         System.out.println(currentUser.getUser().getUsername());
