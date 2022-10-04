@@ -1,10 +1,10 @@
-package pl.coderslab.diywithspring.services.implemetations;
+package pl.coderslab.diywithspring.services.implemetations.chat;
 
 import org.springframework.stereotype.Service;
 import pl.coderslab.diywithspring.models.chat.MessageDB;
 import pl.coderslab.diywithspring.models.chat.MessageModel;
-import pl.coderslab.diywithspring.repositories.MessageDBRepository;
-import pl.coderslab.diywithspring.services.interfaces.MessageDBService;
+import pl.coderslab.diywithspring.repositories.chat.MessageDBRepository;
+import pl.coderslab.diywithspring.services.interfaces.chat.MessageDBService;
 
 import java.util.List;
 
@@ -33,7 +33,13 @@ public class MessageDBServiceImpl implements MessageDBService {
         messageModel.setMessage(messageDB.getMessage());
         messageModel.setFromLogin(messageDB.getFromLogin());
         messageModel.setToLogin(messageDB.getToLogin());
+        messageModel.setChatName(messageDB.getChatName());
         messageModel.setCreatedOn(messageDB.getCreatedOn().toString());
         return messageModel;
+    }
+
+    @Override
+    public List<MessageDB> findAllByChatRoomName(String chatRoomName) {
+        return messageDBRepository.findAllByChatNameOrderByCreatedOn(chatRoomName);
     }
 }

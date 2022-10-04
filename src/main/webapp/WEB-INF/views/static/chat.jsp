@@ -26,6 +26,18 @@
 
                             </ul>
                         </div>
+
+                        <div class="chatRoom" id="chatRoom">
+                            <div class="search">
+                                <input id="chatRoomName" placeholder="Chat Room Name" type="text"/>
+                                <button onclick="creationChatRoom()">Create Chat Room</button>
+                            </div>
+                            <ul class="list" id="charRoomList">
+
+
+                            </ul>
+                        </div>
+
                     </nav>
                 </th>
 
@@ -38,6 +50,7 @@
 
                             <div class="chat-about">
                                 <div class="chat-with" id="selectedUserId"></div>
+                                <div class="chat-with" id="selectedChatRoomId"></div>
                                 <div class="chat-num-messages"></div>
                             </div>
                             <i class="fa fa-star"></i>

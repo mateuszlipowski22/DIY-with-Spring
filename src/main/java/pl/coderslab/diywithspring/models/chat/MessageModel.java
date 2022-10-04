@@ -15,4 +15,6 @@ public class MessageModel {
     private String fromLogin;
     private String toLogin;
     private String createdOn;
+    private String chatName;
+
 }

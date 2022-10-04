@@ -1,4 +1,4 @@
-package pl.coderslab.diywithspring.web.controllers;
+package pl.coderslab.diywithspring.web.controllers.chat;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -25,17 +25,6 @@ public class UserController {
         this.roleService = roleService;
     }
 
-
-//    @GetMapping("/registration/{userName}")
-//    public ResponseEntity<Void> register(@PathVariable String userName) {
-//        System.out.println("handling register user request: " + userName);
-//        try {
-//            UserStorage.getInstance().setUser(userName);
-//        } catch (Exception e) {
-//            return ResponseEntity.badRequest().build();
-//        }
-//        return ResponseEntity.ok().build();
-//    }
 
     @GetMapping("/fetchAllUsers")
     public Set<String> fetchAll() {

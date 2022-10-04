@@ -43,7 +43,12 @@ function sendMessage(message) {
     console.log(username)
     let currentDate=getCurrentDateAndTime();
     let toLogin = selectedUser;
-    sendMsg(username, message, toLogin, currentDate);
+    let chatRoomName = selectedChatRoom;
+    if(selectedUser===null && selectedChatRoom!==null){
+        sendMsgChatRoom(username, message, chatRoomName, currentDate)
+    }else{
+        sendMsg(username, message, toLogin, currentDate);
+    }
     scrollToBottom();
     if (message.trim() !== '') {
         var template = Handlebars.compile($("#message-template").html());
