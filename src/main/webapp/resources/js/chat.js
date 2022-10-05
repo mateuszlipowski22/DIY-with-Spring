@@ -61,9 +61,8 @@ function registration() {
 
 function selectUser(userName) {
     console.log("selecting users: " + userName);
-    // connectToChat(userName);
-    tempChatHistory = document.getElementById('chat-history').firstChild;
-    tempChatHistory.innerHTML = ""
+    tempChatHistory = document.getElementById('chat-history').lastElementChild;
+    tempChatHistory.innerHTML =""
     console.log(tempChatHistory);
 
     fetch('http://localhost:8080/user/chat/' + userName)
@@ -137,8 +136,8 @@ function fetchAllChatRoom() {
         let chatRoomTemplateHTML = "";
         for (let i = 0; i < chatRoomList.length; i++) {
             chatRoomTemplateHTML = chatRoomTemplateHTML + '<a href="#" onclick="selectChatRoom(\'' + chatRoomList[i] + '\')" class="panel-block">\n' +
-                    '                                    <div id="chatRoomNameAppender_\' + chatRoomList[i] + \'" class="name">' + chatRoomList[i] + '</div>\n' +
-                    '                                </a>';
+                    '                                    <div id="chatRoomNameAppender_\' + chatRoomList[i] + \'" class="name">' + chatRoomList[i] + ' </div>\n' +
+                    '                                </a> <a href="#" onclick="deleteChatRoom(\'' + chatRoomList[i] + '\')">&#128465</a>';
         }
         $('#charRoomList').html(chatRoomTemplateHTML);
     });
@@ -171,10 +170,14 @@ function connectToChatRoom(chatRoomName) {
             let data = JSON.parse(response.body);
             console.log(data)
             if (chatRoomName === data.chatName) {
-                render(data.message, data.fromLogin);
+                let userName = document.getElementById("userName").value;
+                if(userName!==data.fromLogin){
+                    render(data.message, data.fromLogin);
+                }
             } else {
                 newMessages.set(data.fromLogin, data.message);
                 $('#userNameAppender_' + data.fromLogin).append('<span id="newMessage_' + data.fromLogin + '" style="color: red">+1</span>');
+                console.log("to tutaj sie wyswietla")
             }
         });
     });
@@ -185,7 +188,7 @@ function selectChatRoom(chatRoomName) {
     if (stompClientChatRoom===undefined) {
         connectToChatRoom(chatRoomName);
     }
-    tempChatHistory = document.getElementById('chat-history').firstChild;
+    tempChatHistory = document.getElementById('chat-history').lastElementChild;
     tempChatHistory.innerHTML = ""
     console.log(tempChatHistory);
 
@@ -222,4 +225,10 @@ function selectChatRoom(chatRoomName) {
     $('#selectedUserId').html('');
     $('#selectedChatRoomId').html('');
     $('#selectedChatRoomId').append('Chat Room Name ' + chatRoomName);
+}
+
+function deleteChatRoom(chatRoomName){
+    $.get(url + "/chatroom/delete/"+chatRoomName, function (response) {
+        fetchAllChatRoom();
+    });
 }

@@ -8,4 +8,6 @@ public interface ChatRoomService {
 
     List<String> findAllChatRoomNames();
     void saveChatRoom(ChatRoom chatRoom);
+    void deleteChatRoomByName(String chatRoomName);
+
 }

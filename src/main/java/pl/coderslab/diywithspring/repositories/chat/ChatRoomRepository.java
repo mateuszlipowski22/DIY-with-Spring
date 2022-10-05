@@ -5,4 +5,7 @@ import pl.coderslab.diywithspring.models.Comment;
 import pl.coderslab.diywithspring.models.chat.ChatRoom;
 
 public interface ChatRoomRepository extends JpaRepository<ChatRoom,Long> {
+
+    void deleteByChatRoomName(String chatRoomName);
+
 }

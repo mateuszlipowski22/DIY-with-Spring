@@ -2,12 +2,10 @@ package pl.coderslab.diywithspring.web.controllers.chat;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.coderslab.diywithspring.models.chat.ChatRoom;
 import pl.coderslab.diywithspring.services.interfaces.chat.ChatRoomService;
+import pl.coderslab.diywithspring.services.interfaces.chat.MessageDBService;
 
 import java.util.List;
 
@@ -17,9 +15,11 @@ import java.util.List;
 public class ChatRoomController {
 
     private final ChatRoomService chatRoomService;
+    private final MessageDBService messageDBService;
 
-    public ChatRoomController(ChatRoomService chatRoomService) {
+    public ChatRoomController(ChatRoomService chatRoomService, MessageDBService messageDBService) {
         this.chatRoomService = chatRoomService;
+        this.messageDBService = messageDBService;
     }
 
     @GetMapping("/fetchAllChatRoom")
@@ -34,6 +34,18 @@ public class ChatRoomController {
             ChatRoom chatRoomToSave = new ChatRoom();
             chatRoomToSave.setChatRoomName(chatRoomName);
             chatRoomService.saveChatRoom(chatRoomToSave);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok().build();
+    }
+
+
+    @GetMapping("/chatroom/delete/{chatRoomName}")
+    public ResponseEntity<Void> deleteChatRoom(@PathVariable String chatRoomName) {
+        try {
+            messageDBService.deleteMessageByChatRoomName(chatRoomName);
+            chatRoomService.deleteChatRoomByName(chatRoomName);
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }

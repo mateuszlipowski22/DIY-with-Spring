@@ -5,12 +5,12 @@
 <jsp:include page="/WEB-INF/views/static/header.jsp"/>
 
 
-
 <div class="hero-body container has-text-centered">
     <div class="table-container">
-        <table class="table is-fullwidth is-bordered">
+        <table class="table is-fullwidth is-bordered is-scrollable" style="width:1000px">
+            <tbody style="height: 700px">
             <tr>
-                <th>
+                <td style="width:30%" rowspan=3>
                     <nav class="panel">
                         <p class="panel-heading">
                             Chat with DIY users
@@ -26,11 +26,13 @@
 
                             </ul>
                         </div>
-
+                        <p class="panel-heading">
+                            Chatroom
+                        </p>
                         <div class="chatRoom" id="chatRoom">
                             <div class="search">
                                 <input id="chatRoomName" placeholder="Chat Room Name" type="text"/>
-                                <button onclick="creationChatRoom()">Create Chat Room</button>
+                                <button onclick="creationChatRoom()" class="button is-link">Create Chat Room</button>
                             </div>
                             <ul class="list" id="charRoomList">
 
@@ -39,40 +41,38 @@
                         </div>
 
                     </nav>
-                </th>
+                </td>
 
-                <th>
+                <td style="height: 50px" colspan=2>
                     <div class="chat">
                         <div class="chat-header clearfix">
-                            <img alt="avatar" height="55px"
-                                 src="https://rtfm.co.ua/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png"
-                                 width="55px"/>
-
                             <div class="chat-about">
-                                <div class="chat-with" id="selectedUserId"></div>
+                                <div class="chat-with" id="selectedUserId">Select user for Chat</div>
                                 <div class="chat-with" id="selectedChatRoomId"></div>
                                 <div class="chat-num-messages"></div>
                             </div>
-                            <i class="fa fa-star"></i>
                         </div> <!-- end chat-header -->
-
-                        <div class="chat-history" id="chat-history"><ul></ul></div> <!-- end chat-history -->
-
-                        <div class="chat-message clearfix">
-                        <textarea id="message-to-send" name="message-to-send" placeholder="Type your message"
-                                  rows="3"></textarea>
-
-                            <i class="fa fa-file-o"></i> &nbsp;&nbsp;&nbsp;
-                            <i class="fa fa-file-image-o"></i>
-
-                            <button id="sendBtn">Send</button>
-
-                        </div> <!-- end chat-message -->
-
-                    </div> <!-- end chat -->
-                </th>
+                </td>
             </tr>
+            <TR>
+                <TD style="height: 550px" colspan=2>
+                    <div class="chat-history" id="chat-history" style="overflow: auto; height: 550px">
+                        <ul></ul>
+                    </div> <!-- end chat-history -->
+                </TD>
+            </TR>
+            <TR>
+                <TD style="height: 100px" colspan=2>
+                    <div class="chat-message clearfix">
+                        <textarea id="message-to-send" name="message-to-send" placeholder="Type your message"
+                                  rows="3" cols="75"></textarea>
+                        <button id="sendBtn" class="button is-link">Send</button>
+                    </div> <!-- end chat-message -->
+                </TD>
+            </TR>
+                    </div> <!-- end chat -->
 
+             </tbody>
         </table>
 
         <script id="message-template" type="text/x-handlebars-template">
@@ -122,7 +122,6 @@
                 </div>
             </article>
         </script>
-
     </div>
 </div>
 

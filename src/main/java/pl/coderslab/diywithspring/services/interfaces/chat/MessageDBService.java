@@ -11,5 +11,5 @@ public interface MessageDBService {
     void saveMessageToDB(MessageDB messageDB);
     MessageModel convertFromMessageDBtoMessageModel(MessageDB messageDB);
     List<MessageDB> findAllByChatRoomName(String chatRoomName);
-
+    void deleteMessageByChatRoomName(String chatRoomName);
 }

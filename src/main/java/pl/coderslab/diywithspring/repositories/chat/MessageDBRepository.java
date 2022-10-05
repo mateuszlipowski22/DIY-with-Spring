@@ -15,4 +15,6 @@ public interface MessageDBRepository extends JpaRepository<MessageDB, Long> {
     List<MessageDB> findAllMessagesBetweenUsers(String fromLogin, String toLogin);
 
     List<MessageDB> findAllByChatNameOrderByCreatedOn(String chatRoomName);
+
+    void deleteByChatName(String chatName);
 }

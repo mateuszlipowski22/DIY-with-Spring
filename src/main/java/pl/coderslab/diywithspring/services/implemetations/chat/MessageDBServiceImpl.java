@@ -6,6 +6,7 @@ import pl.coderslab.diywithspring.models.chat.MessageModel;
 import pl.coderslab.diywithspring.repositories.chat.MessageDBRepository;
 import pl.coderslab.diywithspring.services.interfaces.chat.MessageDBService;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -16,6 +17,8 @@ public class MessageDBServiceImpl implements MessageDBService {
     public MessageDBServiceImpl(MessageDBRepository messageDBRepository) {
         this.messageDBRepository = messageDBRepository;
     }
+
+    public DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @Override
     public List<MessageDB> findAllByLoginToAndLoginFrom(String loginTo, String loginFrom) {
@@ -34,12 +37,17 @@ public class MessageDBServiceImpl implements MessageDBService {
         messageModel.setFromLogin(messageDB.getFromLogin());
         messageModel.setToLogin(messageDB.getToLogin());
         messageModel.setChatName(messageDB.getChatName());
-        messageModel.setCreatedOn(messageDB.getCreatedOn().toString());
+        messageModel.setCreatedOn(messageDB.getCreatedOn().format(formatter));
         return messageModel;
     }
 
     @Override
     public List<MessageDB> findAllByChatRoomName(String chatRoomName) {
         return messageDBRepository.findAllByChatNameOrderByCreatedOn(chatRoomName);
+    }
+
+    @Override
+    public void deleteMessageByChatRoomName(String chatRoomName) {
+        messageDBRepository.deleteByChatName(chatRoomName);
     }
 }
