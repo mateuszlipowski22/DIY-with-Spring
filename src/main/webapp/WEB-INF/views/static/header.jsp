@@ -56,6 +56,7 @@
                                 <sec:authorize access="hasRole('USER')">
                                     <li><a href="/user/projects/all">All projects</a></li>
                                     <li><a href="/user/projects/">My projects</a></li>
+                                    <li><a href="/user/favoriteProjects/all">My Favorite projects</a></li>
                                     <li><a href="/user/tools/">My Power tools</a></li>
                                     <li><a href="/user/chat/">Chat</a></li>
                                 </sec:authorize>

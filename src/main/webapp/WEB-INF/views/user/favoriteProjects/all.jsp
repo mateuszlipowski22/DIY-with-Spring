@@ -9,20 +9,20 @@
     <div class="container has-text-centered">
         <div class="container has-text-centered">
             <p class="title">
-                All Projects<br>
+                Your Favorite Projects<br>
                 <br>
             </p>
         </div>
-    <c:if test="${empty projects}">
+    <c:if test="${empty favoriteProjects}">
         <div class="container has-text-centered">
             <p class="title">
-                Lack of projects<br>
+                Lack of favorite projects<br>
                 <br>
             </p>
         </div>
     </c:if>
 
-    <c:if test="${not empty projects}">
+    <c:if test="${not empty favoriteProjects}">
         <table class="table is-fullwidth is-bordered" style="width:100%">
             <thead>
             <tr>
@@ -35,25 +35,25 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach var="project" items="${projects}" varStatus="loop">
+            <c:forEach var="favoriteProject" items="${favoriteProjects}" varStatus="loop">
                 <tr>
                     <td>${loop.count}</td>
                     <th>
-                        <img src="/user/project/${project.id}/showImage" width="150" height="150">
+                        <img src="/user/project/${favoriteProject.favoriteProject.id}/showImage" width="150" height="150">
                     </th>
-                    <td>${project.title}</td>
-                    <td>${project.description}</td>
-                    <td>${project.user.username}</td>
+                    <td>${favoriteProject.favoriteProject.title}</td>
+                    <td>${favoriteProject.favoriteProject.description}</td>
+                    <td>${favoriteProject.favoriteProject.user.username}</td>
                     <td>
                         <nav class="navbar">
                             <div class="container">
                                 <div class="navbar-menu">
-                                    <a href="/user/project/${project.id}/show">
+                                    <a href="/user/project/${favoriteProject.favoriteProject.id}/show">
                                         <button type="submit" class="button button is-primary">Show Details</button></a>
                                 </div>
                                 <div class="navbar-menu">
-                                    <a href="/user/favoriteProjects/${project.id}/addToFavorite">
-                                        <button type="submit" class="button button is-primary">Add to my favorite</button></a>
+                                    <a href="/user/favoriteProjects/${favoriteProject.id}/removeFromFavorite">
+                                        <button type="submit" class="button button is-primary">Remove from favorite</button></a>
                                 </div>
                             </div>
                         </nav>
@@ -65,8 +65,8 @@
     </c:if>
         <div class="container has-text-centered">
             <div>
-                <a href="/user/project/add">
-                    <button type="submit" class="button button is-primary"><br>Add new project<br></button>
+                <a href="/user/projects/all">
+                    <button type="submit" class="button button is-primary"><br>Show all projects<br></button>
                 </a>
             </div>
         </div>
