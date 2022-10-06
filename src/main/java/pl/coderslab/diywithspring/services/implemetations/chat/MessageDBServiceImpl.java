@@ -48,6 +48,6 @@ public class MessageDBServiceImpl implements MessageDBService {
 
     @Override
     public void deleteMessageByChatRoomName(String chatRoomName) {
-        messageDBRepository.deleteByChatName(chatRoomName);
+        messageDBRepository.deleteAllByChatName(chatRoomName);
     }
 }

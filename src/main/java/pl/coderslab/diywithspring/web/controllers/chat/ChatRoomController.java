@@ -44,7 +44,11 @@ public class ChatRoomController {
     @GetMapping("/chatroom/delete/{chatRoomName}")
     public ResponseEntity<Void> deleteChatRoom(@PathVariable String chatRoomName) {
         try {
-            messageDBService.deleteMessageByChatRoomName(chatRoomName);
+            try{
+                messageDBService.deleteMessageByChatRoomName(chatRoomName);
+            }catch (Exception e){
+                log.error("Error with delete message of "+ chatRoomName);
+            }
             chatRoomService.deleteChatRoomByName(chatRoomName);
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
