@@ -12,4 +12,5 @@ public interface ProjectService {
     List<Project> findProjectsByUserID(Long id);
     List<Project> findAll();
     Byte[] getByteImage(MultipartFile file);
+    Project saveProjectAndReturn(Project project);
 }

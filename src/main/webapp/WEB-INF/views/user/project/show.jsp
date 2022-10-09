@@ -34,11 +34,43 @@
                         </div>
                     </div>
                     <div class="field">
-                        <label class="label">Components</label>
+                        <label class="label">Category</label>
                         <div>
-                            ${project.components}
+                            ${project.category}
                         </div>
                     </div>
+                    <div class="field">
+                        <label class="label">Component</label>
+                        <c:if test="${empty project.components}">
+                            <div>
+                                No Component added for project
+                            </div>
+                        </c:if>
+
+                        <c:if test="${not empty project.components}">
+                            <table class="table is-fullwidth is-bordered" style="width:100%">
+                                <thead>
+                                <tr>
+                                    <th style="width:10%">Num</th>
+                                    <th style="width:70%">Description</th>
+                                    <th>Quantity</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <c:forEach var="component" items="${project.components}" varStatus="loop">
+
+                                    <tr>
+                                        <td>${loop.count}</td>
+                                        <td>${component.description}</td>
+                                        <td>${component.quantity}</td>
+                                    </tr>
+
+                                </c:forEach>
+                                </tbody>
+                            </table>
+                        </c:if>
+                    </div>
+
                     <div class="field">
                         <label class="label">Tools</label>
                         <c:if test="${empty project.tools}">

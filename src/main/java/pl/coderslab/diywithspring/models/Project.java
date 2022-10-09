@@ -25,7 +25,8 @@ public class Project {
 
     private String description;
 
-    private String components;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Component> components;
 
     private String category;
 
@@ -35,7 +36,7 @@ public class Project {
     @OneToMany
     private List<Step> steps;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Tool> tools;
 
     @Lob

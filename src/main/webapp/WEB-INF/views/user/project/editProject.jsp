@@ -33,15 +33,6 @@
           </div>
         </div>
         <div class="field">
-          <label class="label">Components</label>
-          <div>
-            <form:input path="components" cssClass="input"></form:input>
-          </div>
-          <div>
-            <form:errors path="components"></form:errors>
-          </div>
-        </div>
-        <div class="field">
           <label class="label">Category</label>
           <div>
             <form:input path="category" cssClass="input"></form:input>

@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import pl.coderslab.diywithspring.dto.ComponentDTO;
 import pl.coderslab.diywithspring.models.CurrentUser;
 import pl.coderslab.diywithspring.models.Project;
 import pl.coderslab.diywithspring.models.User;
@@ -55,20 +56,22 @@ public class ProjectsController {
     }
 
     @PostMapping("/project/add")
-    public String showAddProjectForm(@Valid Project project,BindingResult bindingResult, @AuthenticationPrincipal CurrentUser currentUser, @RequestParam("imageFile") MultipartFile imageFile){
+    public String processAddProjectForm(@Valid Project project,BindingResult bindingResult, @AuthenticationPrincipal CurrentUser currentUser, @RequestParam("imageFile") MultipartFile imageFile, Model model){
         if(bindingResult.hasErrors()){
             return "user/project/addProject";
         }
         Project projectToSave = new Project();
         projectToSave.setCategory(project.getCategory());
-        projectToSave.setComponents(project.getComponents());
         projectToSave.setTitle(project.getTitle());
         projectToSave.setDescription(project.getDescription());
         projectToSave.setImage(projectService.getByteImage(imageFile));
         projectToSave.setUser(currentUser.getUser());
         projectToSave.setTools(project.getTools());
         projectService.saveProject(projectToSave);
-        return "redirect:/user/projects/all";
+//        return "redirect:/user/projects/all";
+        model.addAttribute("project", projectToSave);
+        model.addAttribute("componentDTO", new ComponentDTO());
+        return "/user/project/component/addComponent";
     }
 
     @GetMapping("/project/{projectId}/showImage")

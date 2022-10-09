@@ -67,4 +67,9 @@ public class ProjectServiceImpl implements ProjectService {
         }
         return null;
     }
+
+    @Override
+    public Project saveProjectAndReturn(Project project) {
+        return projectRepository.save(project);
+    }
 }
