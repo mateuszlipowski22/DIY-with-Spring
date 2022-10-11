@@ -1,13 +1,12 @@
 package pl.coderslab.diywithspring.web.controllers;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import pl.coderslab.diywithspring.dto.CommentDTO;
 import pl.coderslab.diywithspring.dto.ComponentDTO;
 import pl.coderslab.diywithspring.models.Comment;
@@ -17,10 +16,16 @@ import pl.coderslab.diywithspring.models.Project;
 import pl.coderslab.diywithspring.services.interfaces.ComponentService;
 import pl.coderslab.diywithspring.services.interfaces.ProjectService;
 
+
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.stream.Collectors;
 
 @Controller
+@Slf4j
 @RequestMapping("/user/project/component/")
 public class ComponentController {
 

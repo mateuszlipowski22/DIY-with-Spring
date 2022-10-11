@@ -68,6 +68,16 @@
                                 </c:forEach>
                                 </tbody>
                             </table>
+                            <nav class="navbar">
+                                <div class="tabs is-right">
+                                    <div class="navbar-menu">
+                                        <form method="get" action="/user/project/component/downloadList">
+                                            <input type="hidden" name="projectId" value="${project.id}"/>
+                                            <button type="submit" class="button is-link">Generate Component List</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </nav>
                         </c:if>
                     </div>
 
