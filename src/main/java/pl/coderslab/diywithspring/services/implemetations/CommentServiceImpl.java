@@ -52,4 +52,9 @@ public class CommentServiceImpl implements CommentService {
         commentDTO.setUpdatedOn(comment.getUpdatedOn());
         return commentDTO;
     }
+
+    @Override
+    public void deleteCommentByUserId(Long userId) {
+        commentRepository.deleteAllByUserId(userId);
+    }
 }

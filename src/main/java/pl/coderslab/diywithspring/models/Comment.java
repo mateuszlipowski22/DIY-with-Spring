@@ -21,7 +21,7 @@ public class Comment {
     @ManyToOne
     private User user;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Project project;
 
     private LocalDateTime createdOn;

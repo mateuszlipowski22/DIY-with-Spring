@@ -15,4 +15,6 @@ public interface CommentService {
     void deleteCommentById(Long commentId);
 
     CommentDTO convertCommandIntoCommandDTO(Comment comment);
+
+    void deleteCommentByUserId(Long userId);
 }
