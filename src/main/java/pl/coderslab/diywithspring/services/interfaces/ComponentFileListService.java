@@ -14,4 +14,6 @@ public interface ComponentFileListService {
     Document createWellFormedHtml(File inputHTML) throws IOException;
 
     void xhtmlToPdf(Document xhtml, File outputPdf) throws Exception;
+
+    File generateHTMLListFast(Long projectID);
 }

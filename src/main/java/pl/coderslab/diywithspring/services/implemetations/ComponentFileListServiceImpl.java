@@ -31,9 +31,10 @@ public class ComponentFileListServiceImpl implements ComponentFileListService {
 
     @Override
     public File generateHtmlToPdf(Long projectID) throws Exception {
-        File inputHTML = generateHTMLList(projectID);
+//        File inputHTML = generateHTMLList(projectID);
+        File inputHTML = generateHTMLListFast(projectID);
         Document inputHtml = createWellFormedHtml(inputHTML);
-        File outputPdf = new File("src/main/webapp/resources/pdfList/componentListTemplate.pdf");
+        File outputPdf = new File("src/main/webapp/resources/pdfList/componentListInstance.pdf");
         xhtmlToPdf(inputHtml, outputPdf);
         return outputPdf;
     }
@@ -42,37 +43,76 @@ public class ComponentFileListServiceImpl implements ComponentFileListService {
     @Override
     public File generateHTMLList(Long projectID) {
 
-        String htmlTemplateHeaderString = null;
-        String htmlTemplateFooterString = null;
+        String htmlTemplateString = null;
 
         try {
-            htmlTemplateHeaderString = Files.readString(Path.of("src/main/webapp/resources/pdfList/listTemplateHeader.html"));
-            htmlTemplateFooterString = Files.readString(Path.of("src/main/webapp/resources/pdfList/listTemplateFooter.html"));
-
+            htmlTemplateString = Files.readString(Path.of("src/main/webapp/resources/pdfList/listTemplate.html"));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        StringBuffer listTemplate = new StringBuffer(htmlTemplateHeaderString);
+        StringBuffer componentList = new StringBuffer();
 
         AtomicInteger counter = new AtomicInteger(1);
         List<Component> components = projectService.findProjectByID(projectID).getComponents();
         components.stream().forEach(
-                component -> listTemplate
+                component -> componentList
                         .append("<tr>\n")
                         .append("<td>").append(counter.getAndIncrement()).append("</td>\n")
                         .append("<td>").append(component.getDescription()).append("</td>\n")
                         .append("<td>").append(component.getQuantity()).append("</td>\n")
                 .append("</tr>\n"));
-        listTemplate.append(htmlTemplateFooterString);
-        File componentListExample = new File("src/main/webapp/resources/pdfList/componentListExample.html");
+        String htmlTemplateInstanceString = htmlTemplateString
+                .replace("$Project_Component_list", componentList.toString())
+                .replace("$Project_Name", projectService.findProjectByID(projectID).getTitle());
+        File componentListExample = new File("src/main/webapp/resources/pdfList/componentListInstance.html");
         try {
-            FileUtils.writeStringToFile(componentListExample,listTemplate.toString(), Charset.defaultCharset());
+            FileUtils.writeStringToFile(componentListExample,htmlTemplateInstanceString, Charset.defaultCharset());
         } catch (IOException e) {
             e.printStackTrace();
         }
         return componentListExample;
     }
+
+
+    @Override
+    public File generateHTMLListFast(Long projectID) {
+
+        StringBuffer htmlTemplateHeader = null;
+        StringBuffer htmlTemplateFooter = null;
+
+        try {
+            htmlTemplateHeader = new StringBuffer(Files.readString(Path.of("src/main/webapp/resources/pdfList/listTemplateHeader.html")));
+            htmlTemplateFooter = new StringBuffer(Files.readString(Path.of("src/main/webapp/resources/pdfList/listTemplateFooter.html")));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        StringBuffer componentList = new StringBuffer();
+
+        AtomicInteger counter = new AtomicInteger(1);
+        List<Component> components = projectService.findProjectByID(projectID).getComponents();
+        components.stream().forEach(
+                component -> componentList
+                        .append("<tr>\n")
+                        .append("<td>").append(counter.getAndIncrement()).append("</td>\n")
+                        .append("<td>").append(component.getDescription()).append("</td>\n")
+                        .append("<td>").append(component.getQuantity()).append("</td>\n")
+                        .append("</tr>\n"));
+
+
+        StringBuffer htmlTemplate = htmlTemplateHeader.append(componentList).append(htmlTemplateFooter);
+
+        File componentListInstance = new File("src/main/webapp/resources/pdfList/componentListInstance.html");
+        try {
+            FileUtils.writeStringToFile(componentListInstance,htmlTemplate.toString(), Charset.defaultCharset());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return componentListInstance;
+    }
+
 
     @Override
     public Document createWellFormedHtml(File inputHTML) throws IOException {
@@ -91,6 +131,4 @@ public class ComponentFileListServiceImpl implements ComponentFileListService {
             renderer.createPDF(outputStream);
         }
     }
-
-
 }
