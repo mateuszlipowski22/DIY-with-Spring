@@ -72,5 +72,23 @@ public class UserProjectsController {
         return "/user/project/component/editComponent";
     }
 
+
+    @GetMapping("/project/delete")
+    public String showDeleteProjectForm(Model model, @RequestParam("projectID") Long projectID){
+        Project projectToDelete =projectService.findProjectByID(projectID);
+        model.addAttribute("project", projectToDelete);
+        return "user/project/deleteProject";
+    }
+
+    @PostMapping("/project/delete")
+    public String processDeleteProjectForm(@AuthenticationPrincipal CurrentUser currentUser,
+                                           @RequestParam("projectID") Long projectID) {
+        Project projectToDelete = projectService.findProjectByID(projectID);
+        projectToDelete.setTools(null);
+        projectService.saveProject(projectToDelete);
+        projectService.deleteProjectByID(projectID);
+        return "redirect:/user/projects";
+    }
+
 }
 

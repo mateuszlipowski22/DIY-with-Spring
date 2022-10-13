@@ -72,4 +72,9 @@ public class ProjectServiceImpl implements ProjectService {
     public Project saveProjectAndReturn(Project project) {
         return projectRepository.save(project);
     }
+
+    @Override
+    public void deleteProjectByID(Long projectId) {
+        projectRepository.delete(projectRepository.findById(projectId).orElseThrow(IllegalArgumentException::new));
+    }
 }

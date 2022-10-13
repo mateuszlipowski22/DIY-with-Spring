@@ -13,4 +13,5 @@ public interface ProjectService {
     List<Project> findAll();
     Byte[] getByteImage(MultipartFile file);
     Project saveProjectAndReturn(Project project);
+    void deleteProjectByID(Long projectId);
 }
