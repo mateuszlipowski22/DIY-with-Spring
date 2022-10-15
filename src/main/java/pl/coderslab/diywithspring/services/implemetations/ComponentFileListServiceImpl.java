@@ -15,6 +15,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -106,7 +107,7 @@ public class ComponentFileListServiceImpl implements ComponentFileListService {
 
         File componentListInstance = new File("src/main/webapp/resources/pdfList/componentListInstance.html");
         try {
-            FileUtils.writeStringToFile(componentListInstance,htmlTemplate.toString(), Charset.defaultCharset());
+            FileUtils.writeStringToFile(componentListInstance,htmlTemplate.toString(), StandardCharsets.UTF_8);
         } catch (IOException e) {
             e.printStackTrace();
         }

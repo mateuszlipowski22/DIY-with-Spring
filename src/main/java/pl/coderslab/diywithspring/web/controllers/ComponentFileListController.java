@@ -38,4 +38,5 @@ public class ComponentFileListController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=componentList")
                 .body(new ByteArrayResource(Files.readAllBytes(componentListPDF.toPath())));
     }
+//    octec stream
 }
