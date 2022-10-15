@@ -13,13 +13,13 @@ Application written in Spring framework uses following modules:
 
 -Web Socket
 
-Comunication with database by the usage of Hibernate.
+Communication with database by the usage of Hibernate.
 
 Front-end based on JSP websites and JavaScript (combined with websocket application for
 
 live user chat).
 
-Implemetation of Bulma CSS framework. 
+Implementation of Bulma CSS framework. 
 
 Simplification of the written JAVA code by the usage of Project Lombok.
 
