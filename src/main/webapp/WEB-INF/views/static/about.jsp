@@ -34,6 +34,7 @@
                                 Implementation of Bulma CSS framework.<br>
                                 Simplification of the written JAVA code by the usage of Project Lombok.<br>
                                 <br>
+
                             </table>
                             <br>Additional features after login into website<br><br>
                             http://localhost:8080/create-user creation of user account:<br>
