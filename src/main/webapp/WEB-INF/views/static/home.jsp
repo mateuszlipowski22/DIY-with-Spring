@@ -13,7 +13,7 @@
             DIY-with-Spring
           </h1>
           <h2 class="subtitle is-4">
-            Simple project using Spring MVC, Spring Security and JPA implementation
+            Project using Spring MVC, Spring Security and JPA implementation
           </h2>
           <br>
           <p class="has-text-centered">

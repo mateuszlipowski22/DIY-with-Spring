@@ -26,6 +26,7 @@
                 <th style="width:10%">Num</th>
                 <th style="width:70%">Description</th>
                 <th>Quantity</th>
+                <th>Action</th>
               </tr>
               </thead>
               <tbody>
