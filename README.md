@@ -25,7 +25,7 @@ Simplification of the written JAVA code by the usage of Project Lombok.
 
 
 Main Page for User
-![obraz](https://user-images.githubusercontent.com/101294812/196003686-4767c570-f697-49b8-8a07-8e2fa457c7d3.png)
+![obraz](https://user-images.githubusercontent.com/101294812/197421972-da38c6f0-841b-4fe7-a9f9-22bb505e9138.png)
 
 
 
